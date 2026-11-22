@@ -19,6 +19,15 @@ jobs:
           rm -rf proj
           unzip -q project.zip -d proj
 
+      - name: Vosk modelini yuklash
+        run: |
+          curl -fL -o model.zip https://alphacephei.com/vosk/models/vosk-model-small-uz-0.22.zip
+          unzip -q model.zip -d m
+          d=$(ls -d m/*/ | head -1)
+          mkdir -p proj/app/src/main/assets
+          mv "$d" proj/app/src/main/assets/model-uz
+          ls proj/app/src/main/assets/model-uz
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
